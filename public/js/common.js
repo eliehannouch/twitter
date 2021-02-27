@@ -225,7 +225,11 @@ $("#coverPhotoButton").click(() => {
 // used for removing and adding tempCover style
 $(".userImageContainer").hover(() => {
   var coverSpace = document.querySelector(".coverPhotoButton");
-  coverSpace.classList.add("tempCoverStyle");
+  try {
+    coverSpace.classList.add("tempCoverStyle");
+  } catch (error) {
+    console.log("TEMP CLASS");
+  }
 });
 
 $(".userImageContainer").mouseleave(() => {
