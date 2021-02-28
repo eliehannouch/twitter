@@ -16,7 +16,6 @@ router.post("/", async (req, res, next) => {
 
   const payload = req.body;
   const findEmail = req.body.resetEmail.trim();
-  console.log(findEmail);
   const getUser = await User.findOne({ email: findEmail }).catch(() => {
     payload.statusMessage = "Something went wrong. Please try again.";
     return res.status(400).render("requestReset", payload);

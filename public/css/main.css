@@ -58,6 +58,7 @@ nav a {
   align-items: center;
   justify-content: center;
   color: #212529;
+  position: relative;
 }
 
 nav a.blue {
@@ -96,8 +97,12 @@ button span {
   padding:  0;
   border-left: 1px solid var(--lightGrey);
   border-right: 1px solid var(--lightGrey);
+  border-top: 1px solid var(--lightGrey);
+  border-bottom: 1px solid var(--lightGrey);
   display: flex;
   flex-direction: column;
+  margin-top: 12px;
+  margin-bottom: 9px;
 }
 
 .titleContainer {
@@ -550,6 +555,9 @@ button.del:hover {
   font-size: 24px;
 }
 
+#msgIcon:hover {
+  color: var(--blue)
+}
 .resultListItem {
   padding: 7px;
   display: flex;
@@ -827,3 +835,45 @@ button.del:hover {
  
 }
 
+
+.markAsRead{
+  font-size: 20px;
+  
+  
+}
+
+.markAsRead:hover {
+  color: var(--blue)
+}
+
+
+.resultListItem.active {
+  background-color: var(--blueBackground)
+}
+
+.resultListItem.notification * {
+  pointer-events: none;
+}
+
+#notificationBadge,
+#messagesBadge {
+  background-color: var(--red);
+  height: 25px;
+  width:25px;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: #fff;
+  font-size: 18px;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden;
+}
+
+#notificationBadge.active,
+#messagesBadge.active { 
+  visibility:visible;
+}
+ 

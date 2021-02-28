@@ -234,8 +234,12 @@ $(".userImageContainer").hover(() => {
 
 $(".userImageContainer").mouseleave(() => {
   var coverSpace = document.querySelector(".coverPhotoButton");
-  if (coverSpace.classList.contains("tempCoverStyle"))
-    $(".coverPhotoButton").removeClass("tempCoverStyle");
+  try {
+    if (coverSpace.classList.contains("tempCoverStyle"))
+      $(".coverPhotoButton").removeClass("tempCoverStyle");
+  } catch (error) {
+    console.log("TEMP CLASS");
+  }
 });
 // ---------------------------------------------
 
@@ -360,6 +364,17 @@ $(document).on("click", ".followButton", (e) => {
       }
     },
   });
+});
+
+$(document).on("click", ".notification.active", (e) => {
+  var container = $(e.target);
+  var notificationId = container.data().id;
+
+  var href = container.attr("href");
+  e.preventDefault();
+
+  var callback = () => (window.location = href);
+  markNotificationsAsOpened(notificationId, callback);
 });
 
 function getPostIdFromElement(element) {
@@ -673,8 +688,22 @@ function getOtherChatUsers(users) {
 
 function messageReceived(newMessage) {
   if ($(".chatContainer").length == 0) {
-    // Show popup notification
+    // TODO: Show popup notification
   } else {
     addChatMessageHtml(newMessage);
   }
+}
+
+function markNotificationsAsOpened(notificationId = null, callback = null) {
+  if (callback == null) callback = () => location.reload();
+
+  var url =
+    notificationId != null
+      ? `/api/notifications/${notificationId}/markAsOpened`
+      : `/api/notifications/markAsOpened`;
+  $.ajax({
+    url: url,
+    type: "PUT",
+    success: () => callback(),
+  });
 }
