@@ -95,6 +95,7 @@ router.get("/:userId/followers", async (req, res, next) => {
       res.sendStatus(400);
     });
 });
+
 router.post(
   "/profilePicture",
   upload.single("croppedImage"),

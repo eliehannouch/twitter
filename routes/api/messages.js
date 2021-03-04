@@ -20,6 +20,7 @@ router.post("/", async (req, res, next) => {
     sender: req.session.user._id,
     content: req.body.content,
     chat: req.body.chatId,
+    readBy: [req.session.user._id],
   };
 
   Message.create(newMessage)
@@ -44,8 +45,9 @@ router.post("/", async (req, res, next) => {
 
 function insertNotifications(chat, message) {
   chat.users.forEach((userId) => {
-    if (userId == message.sender._id.toString()) return;
-
+    if (userId == message.sender._id.toString()) {
+      return;
+    }
     Notification.insertNotification(
       userId,
       message.sender._id,
